@@ -1,2 +1,2 @@
 #!/bin/sh
-go build ./cmd/gorot
+go build -o ./cmd/gorot/gorot ./cmd/gorot

@@ -1,3 +1,3 @@
 #!/bin/sh
 ./scripts/build.sh
-./gorot
+./cmd/gorot/gorot
