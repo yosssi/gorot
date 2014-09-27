@@ -1,2 +1,2 @@
 #!/bin/sh
-go test -cover -race ./cmd/gorot
+go test -cover -race ./...
