@@ -11,13 +11,13 @@ import (
 
 var exit = os.Exit
 
-// exit codes
+// Exit codes
 const (
 	exitCodeError       = 1
 	exitCodeNotExecuted = 2
 )
 
-// template strings
+// Template strings
 const (
 	usageTplStr = `Gorot is a pure Go customizable robot.
 
@@ -39,7 +39,7 @@ Use "gorot help [command]" for more information about a command.
 `
 )
 
-// templates
+// Templates
 var (
 	usageTpl = template.Must(template.New("usage").Parse(usageTplStr))
 	helpTpl  = template.Must(template.New("help").Funcs(
@@ -49,8 +49,7 @@ var (
 	).Parse(helpTplStr))
 )
 
-// Commands lists the available commands.
-// The order here is the order in which they are printed by 'gorot help'.
+// Command list
 var commands = []*Command{
 	cmdConsole,
 }
