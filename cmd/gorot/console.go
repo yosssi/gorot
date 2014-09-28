@@ -9,12 +9,6 @@ Console starts the Gorot console.
 				`,
 }
 
-var consoleI bool
-
-func init() {
-	cmdConsole.Flag.BoolVar(&consoleI, "i", false, "")
-}
-
 // runConsole runs the console command.
 func runConsole(cmd *Command, args []string) {
 

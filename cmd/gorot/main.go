@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"io"
 	"os"
 	"strings"
 	"text/template"
@@ -54,6 +53,11 @@ var commands = []*Command{
 	cmdConsole,
 }
 
+// Errors
+var (
+	errTooManyArgs = errors.New("too many arguments given")
+)
+
 func main() {
 	args := os.Args[1:]
 
@@ -86,7 +90,7 @@ func help(args []string) error {
 	case l == 0:
 		return usageTpl.Execute(os.Stderr, commands)
 	case l != 1:
-		return errors.New("too many arguments given")
+		return errTooManyArgs
 	}
 
 	cmdName := args[0]
@@ -102,10 +106,5 @@ func help(args []string) error {
 
 // writeErr writes the error to standard error.
 func writeErr(err error) {
-	write(os.Stderr, err.Error())
-}
-
-// write writes s to w.
-func write(w io.Writer, s string) {
-	w.Write([]byte(s + "\n"))
+	fmt.Fprintln(os.Stderr, err.Error())
 }
