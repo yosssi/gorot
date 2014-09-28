@@ -2,8 +2,56 @@ package main
 
 import (
 	"errors"
+	"flag"
+	"os"
 	"testing"
 )
+
+func init() {
+	exit = func(_ int) {}
+}
+
+func Test_main_argsLenLessThanOne(t *testing.T) {
+	resetForTesting(nil)
+
+	os.Args = []string{os.Args[0]}
+
+	main()
+}
+
+func Test_main_helpErr(t *testing.T) {
+	resetForTesting(nil)
+
+	os.Args = []string{os.Args[0], "help", "not_exist_command"}
+
+	main()
+}
+
+func Test_main_help(t *testing.T) {
+	resetForTesting(nil)
+
+	os.Args = []string{os.Args[0], "help", "console"}
+
+	main()
+}
+
+func Test_main_unknownSubcommand(t *testing.T) {
+	resetForTesting(nil)
+
+	os.Args = []string{os.Args[0], "not_exist_command"}
+
+	main()
+}
+
+func Test_main_(t *testing.T) {
+	resetForTesting(nil)
+
+	os.Args = []string{os.Args[0], "console"}
+
+	main()
+
+	cmdConsole.Flag.Usage()
+}
 
 func Test_help_lenArgsEqualsZero(t *testing.T) {
 	if err := help(nil); err != nil {
@@ -43,4 +91,12 @@ func Test_help(t *testing.T) {
 
 func Test_writeErr(t *testing.T) {
 	writeErr(errors.New("test error"))
+}
+
+// resetForTesting clears all flag state and sets the usage function as directed.
+// After calling ResetForTesting, parse errors in flag handling will not
+// exit the program.
+func resetForTesting(usage func()) {
+	flag.CommandLine = flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
+	flag.Usage = usage
 }

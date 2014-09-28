@@ -63,13 +63,11 @@ func main() {
 	args := os.Args[1:]
 
 	if len(args) < 1 {
-		if err := usageTpl.Execute(os.Stderr, commands); err != nil {
-			writeErr(err)
-			exit(exitCodeError)
-			return
-		}
+		// Ignore the error which is never returned.
+		usageTpl.Execute(os.Stderr, commands)
 
 		exit(exitCodeNotExecuted)
+
 		return
 	}
 
