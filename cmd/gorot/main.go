@@ -12,6 +12,7 @@ var exit = os.Exit
 
 // Exit codes
 const (
+	exitCodeSuccess     = 0
 	exitCodeError       = 1
 	exitCodeNotExecuted = 2
 )
@@ -72,7 +73,9 @@ func main() {
 		return
 	}
 
-	if args[0] == "help" {
+	cmdName := args[0]
+
+	if cmdName == "help" {
 		if err := help(args[1:]); err != nil {
 			writeErr(err)
 			exit(exitCodeError)
@@ -82,6 +85,26 @@ func main() {
 		exit(exitCodeNotExecuted)
 		return
 	}
+
+	for _, cmd := range commands {
+		if cmd.Name() != cmdName {
+			continue
+		}
+
+		cmd.Flag.Usage = func() { cmd.Usage() }
+
+		cmd.Flag.Parse(args[1:])
+
+		args = cmd.Flag.Args()
+
+		cmd.Run(cmd, args)
+
+		exit(exitCodeSuccess)
+		return
+	}
+
+	writeErr(fmt.Errorf("gorot: unknown subcommand %q", cmdName))
+	exit(exitCodeError)
 }
 
 // help implements the 'help' command.
@@ -101,7 +124,7 @@ func help(args []string) error {
 		}
 	}
 
-	return fmt.Errorf("unknown help topic %#q", cmdName)
+	return fmt.Errorf("unknown help topic %q", cmdName)
 }
 
 // writeErr writes the error to standard error.

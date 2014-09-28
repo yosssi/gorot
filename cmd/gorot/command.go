@@ -22,9 +22,6 @@ type Command struct {
 	Long string
 	// Flag is a set of flags specific to this command.
 	Flag flag.FlagSet
-	// CustomFlags indicates that the command will do its own
-	// flag parsing.
-	CustomFlags bool
 }
 
 // Name returns the command's name: the first word in the usage line.

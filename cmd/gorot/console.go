@@ -10,6 +10,4 @@ Console starts the Gorot console.
 }
 
 // runConsole runs the console command.
-func runConsole(cmd *Command, args []string) {
-
-}
+func runConsole(cmd *Command, args []string) {}

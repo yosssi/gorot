@@ -30,7 +30,7 @@ func Test_help_unknown(t *testing.T) {
 		t.Error("error should be returned")
 	}
 
-	if actual, expected := err.Error(), "unknown help topic `not_exist_cmd`"; actual != expected {
+	if actual, expected := err.Error(), `unknown help topic "not_exist_cmd"`; actual != expected {
 		t.Errorf("error should be %q [actual: %q]", expected, actual)
 	}
 }
