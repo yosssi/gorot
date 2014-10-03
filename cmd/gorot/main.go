@@ -6,6 +6,8 @@ import (
 	"os"
 	"strings"
 	"text/template"
+
+	"github.com/yosssi/gorot/cmd"
 )
 
 var exit = os.Exit
@@ -50,7 +52,7 @@ var (
 )
 
 // Command list
-var commands = []*Command{
+var commands = []*cmd.Cmd{
 	cmdConsole,
 }
 

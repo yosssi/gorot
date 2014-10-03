@@ -1,6 +1,8 @@
 package main
 
-var cmdConsole = &Command{
+import "github.com/yosssi/gorot/cmd"
+
+var cmdConsole = &cmd.Cmd{
 	Run:       runConsole,
 	UsageLine: "console",
 	Short:     "start the Gorot console",
@@ -10,4 +12,4 @@ Console starts the Gorot console.
 }
 
 // runConsole runs the console command.
-func runConsole(cmd *Command, args []string) {}
+func runConsole(cmd *cmd.Cmd, args []string) {}
