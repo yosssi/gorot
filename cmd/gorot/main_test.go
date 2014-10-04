@@ -30,7 +30,7 @@ func Test_main_helpErr(t *testing.T) {
 func Test_main_help(t *testing.T) {
 	resetForTesting(nil)
 
-	os.Args = []string{os.Args[0], "help", "console"}
+	os.Args = []string{os.Args[0], "help", "version"}
 
 	main()
 }
@@ -43,14 +43,14 @@ func Test_main_unknownSubcommand(t *testing.T) {
 	main()
 }
 
-func Test_main_(t *testing.T) {
+func Test_main(t *testing.T) {
 	resetForTesting(nil)
 
-	os.Args = []string{os.Args[0], "console"}
+	os.Args = []string{os.Args[0], "version"}
 
 	main()
 
-	cmdConsole.Flag.Usage()
+	cmdVersion.Flag.Usage()
 }
 
 func Test_help_lenArgsEqualsZero(t *testing.T) {
@@ -84,7 +84,7 @@ func Test_help_unknown(t *testing.T) {
 }
 
 func Test_help(t *testing.T) {
-	if err := help([]string{"console"}); err != nil {
+	if err := help([]string{"version"}); err != nil {
 		t.Errorf("error occurred [error: %q]", err)
 	}
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -53,7 +54,7 @@ var (
 
 // Command list
 var commands = []*cmd.Cmd{
-	cmdConsole,
+	cmdVersion,
 }
 
 // Errors
@@ -62,7 +63,9 @@ var (
 )
 
 func main() {
-	args := os.Args[1:]
+	flag.Usage = printUsage
+	flag.Parse()
+	args := flag.Args()
 
 	if len(args) < 1 {
 		// Ignore the error which is never returned.
@@ -107,11 +110,16 @@ func main() {
 	exit(exitCodeError)
 }
 
+func printUsage() {
+	usageTpl.Execute(os.Stderr, commands)
+}
+
 // help implements the 'help' command.
 func help(args []string) error {
 	switch l := len(args); {
 	case l == 0:
-		return usageTpl.Execute(os.Stderr, commands)
+		printUsage()
+		return nil
 	case l != 1:
 		return errTooManyArgs
 	}
