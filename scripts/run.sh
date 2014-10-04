@@ -17,5 +17,11 @@ go build -o $bin $dir
 # Execute the executable file.
 $bin_with_args
 
+# Get the exit code.
+code=$?
+
 # Remove the executable file.
 rm $bin
+
+# Exit with the exit code.
+exit $code

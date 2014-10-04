@@ -11,7 +11,7 @@ import (
 type Cmd struct {
 	// Run runs the command.
 	// The args are the arguments after the command name.
-	Run func(*Cmd, []string)
+	Run func(*Cmd, []string) error
 	// UsageLine is the one-line usage message.
 	// The first word in the line is taken to be the command name.
 	UsageLine string

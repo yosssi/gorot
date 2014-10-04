@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/yosssi/gorot"
@@ -14,12 +15,15 @@ var cmdVersion = &cmd.Cmd{
 	Long:      "Version prints the Gorot version.",
 }
 
+var errVersionArgs = errors.New(`args are specified but the "version" command does not take them`)
+
 // runVersion runs the version command.
-func runVersion(cmd *cmd.Cmd, args []string) {
+func runVersion(cmd *cmd.Cmd, args []string) error {
 	if len(args) != 0 {
-		cmd.Usage()
-		return
+		return errVersionArgs
 	}
 
 	fmt.Printf("Gorot %s\n", gorot.Version)
+
+	return nil
 }

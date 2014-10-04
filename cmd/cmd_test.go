@@ -3,7 +3,7 @@ package cmd
 import "testing"
 
 var cmdTest = &Cmd{
-	Run:       func(c *Cmd, args []string) {},
+	Run:       func(c *Cmd, args []string) error { return nil },
 	UsageLine: "test",
 	Short:     "test command",
 	Long:      "This is a Gorot test command.",
