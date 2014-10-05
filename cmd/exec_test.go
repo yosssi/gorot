@@ -5,7 +5,6 @@ import (
 	"flag"
 	"os"
 	"testing"
-	"text/template"
 )
 
 var errTest = errors.New("test error")
@@ -129,16 +128,6 @@ func TestExec(t *testing.T) {
 	if code := Exec(); code != codeSuc {
 		t.Errorf("exit code should be %d [actual: %d]", codeSuc, code)
 	}
-}
-
-func Test_usage_tmplNil(t *testing.T) {
-	defer func(t *template.Template) {
-		tmplUsage = t
-	}(tmplUsage)
-
-	tmplUsage = nil
-
-	usage()
 }
 
 func Test_usage(t *testing.T) {

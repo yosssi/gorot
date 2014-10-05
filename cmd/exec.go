@@ -131,10 +131,6 @@ func usage() {
 	muCmds.RLock()
 	defer muCmds.RUnlock()
 
-	if tmplUsage == nil {
-		return
-	}
-
 	tmplUsage.Execute(os.Stderr, map[string]interface{}{
 		"app":  app,
 		"cmds": cmds,
