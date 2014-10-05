@@ -11,8 +11,7 @@ var exit = os.Exit
 
 // Available commands
 var cmds = []*cmd.Cmd{
-	cmdCreate,
-	cmdVersion,
+	cmdConsole,
 }
 
 func main() {

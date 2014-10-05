@@ -10,6 +10,6 @@ func Test_runVersion_withArgs(t *testing.T) {
 
 func Test_runVersion(t *testing.T) {
 	if err := runVersion(cmdVersion, nil); err != nil {
-		t.Errorf("err occurred [actual: %q]", err)
+		t.Errorf("error occurred [error: %q]", err)
 	}
 }
