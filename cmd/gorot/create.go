@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"os"
 
 	"github.com/yosssi/gorot/cmd"
 )
@@ -29,6 +30,12 @@ func runCreate(cmd *cmd.Cmd, args []string) error {
 		return errCreateNameNotSpecified
 	case l > 1:
 		return errCreateTooManyArgs
+	}
+
+	name := args[0]
+
+	if err := os.Mkdir(name, os.ModePerm); err != nil {
+		return err
 	}
 
 	fmt.Println("create!")
