@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"testing"
 )
@@ -29,10 +28,8 @@ func Test_runCreate_mkdirErr(t *testing.T) {
 		t.Errorf("error occurred [error: %q]", err)
 	}
 
-	errExpected := fmt.Errorf("mkdir %s: file exists", dirname)
-
-	if err := runCreate(cmdCreate, []string{dirname}); err == nil || err.Error() != errExpected.Error() {
-		t.Errorf("err should be %q [actual: %q]", errExpected, err)
+	if err := runCreate(cmdCreate, []string{dirname}); err == nil {
+		t.Error("error should be occurred")
 	}
 }
 
