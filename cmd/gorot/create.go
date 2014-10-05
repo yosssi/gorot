@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/yosssi/gorot/cmd"
@@ -13,8 +14,23 @@ var cmdCreate = &cmd.Cmd{
 	Long:      "Create creates a deployable Gorot.",
 }
 
+// Errors
+var (
+	errCreateNameNotSpecified = errors.New("gorot name is not specified")
+	errCreateTooManyArgs      = errors.New("too many arguments given")
+)
+
 // runCreate creates the create command.
 func runCreate(cmd *cmd.Cmd, args []string) error {
+	l := len(args)
+
+	switch {
+	case l < 1:
+		return errCreateNameNotSpecified
+	case l > 1:
+		return errCreateTooManyArgs
+	}
+
 	fmt.Println("create!")
 	return nil
 }

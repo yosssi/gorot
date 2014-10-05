@@ -1,0 +1,3 @@
+#!/bin/sh
+
+go-bindata -prefix cmd/gorotbase/ -o cmd/gorot/gorotbase.go cmd/gorotbase/...
