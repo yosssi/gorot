@@ -1,4 +1,4 @@
 package main
 
 // Application name
-const app = "gorot"
+const app = "[[.App]]"

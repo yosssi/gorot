@@ -79,12 +79,6 @@ func Test_main_test_go(t *testing.T) {
 	}
 }
 
-func Test_scripts_run_sh(t *testing.T) {
-	if _, err := scripts_run_sh(); err != nil {
-		t.Errorf("error occurred [error: %q]", err)
-	}
-}
-
 func TestAsset_notFound(t *testing.T) {
 	assetName := "not_exist_asset_name"
 
@@ -126,6 +120,18 @@ func TestAssetDir_notDir(t *testing.T) {
 }
 
 func TestAssetDir(t *testing.T) {
+	_bintreeBak := _bintree
+
+	defer func() {
+		_bintree = _bintreeBak
+	}()
+
+	_bintree = &_bintree_t{nil, map[string]*_bintree_t{
+		"scripts": &_bintree_t{nil, map[string]*_bintree_t{
+			"run.sh": &_bintree_t{main_go, map[string]*_bintree_t{}},
+		}},
+	}}
+
 	if _, err := AssetDir("scripts"); err != nil {
 		t.Errorf("error occurred [error: %q]", err)
 	}

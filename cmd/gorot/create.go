@@ -1,9 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"os"
+	"path/filepath"
+	"text/template"
 
 	"github.com/yosssi/gorot/cmd"
 )
@@ -32,10 +36,38 @@ func runCreate(cmd *cmd.Cmd, args []string) error {
 		return errCreateTooManyArgs
 	}
 
-	name := args[0]
+	dirname := args[0]
 
-	if err := os.Mkdir(name, os.ModePerm); err != nil {
+	if err := os.Mkdir(dirname, os.ModePerm); err != nil {
 		return err
+	}
+
+	tmplData := map[string]interface{}{
+		"App": dirname,
+	}
+
+	for _, filename := range AssetNames() {
+		data, err := Asset(filename)
+
+		if err != nil {
+			return err
+		}
+
+		tmpl, err := template.New(filename).Delims("[[", "]]").Parse(string(data))
+
+		if err != nil {
+			return err
+		}
+
+		bf := new(bytes.Buffer)
+
+		if err := tmpl.Execute(bf, tmplData); err != nil {
+			return err
+		}
+
+		if err := ioutil.WriteFile(filepath.Join(dirname, filename), bf.Bytes(), os.ModePerm); err != nil {
+			return err
+		}
 	}
 
 	fmt.Println("create!")
