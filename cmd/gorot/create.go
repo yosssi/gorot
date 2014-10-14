@@ -47,11 +47,8 @@ func runCreate(cmd *cmd.Cmd, args []string) error {
 	}
 
 	for _, filename := range AssetNames() {
-		data, err := Asset(filename)
-
-		if err != nil {
-			return err
-		}
+		// Asset does not return an error because filename comes from AssetNames.
+		data, _ := Asset(filename)
 
 		tmpl, err := template.New(filename).Delims("[[", "]]").Parse(string(data))
 

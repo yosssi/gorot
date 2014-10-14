@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+const dirnameTest = "testdir"
+
 func Test_runCreate_nameNotSpecified(t *testing.T) {
 	if err := runCreate(cmdCreate, nil); err != errCreateNameNotSpecified {
 		t.Errorf("err should be %q [actual: %q]", errCreateNameNotSpecified, err)
@@ -18,29 +20,25 @@ func Test_runCreate_tooManyArgs(t *testing.T) {
 }
 
 func Test_runCreate_mkdirErr(t *testing.T) {
-	dirname := "testdir"
+	defer os.RemoveAll(dirnameTest)
 
-	defer os.Remove(dirname)
+	os.RemoveAll(dirnameTest)
 
-	os.Remove(dirname)
-
-	if err := os.Mkdir(dirname, os.ModePerm); err != nil {
+	if err := os.Mkdir(dirnameTest, os.ModePerm); err != nil {
 		t.Errorf("error occurred [error: %q]", err)
 	}
 
-	if err := runCreate(cmdCreate, []string{dirname}); err == nil {
+	if err := runCreate(cmdCreate, []string{dirnameTest}); err == nil {
 		t.Error("error should be occurred")
 	}
 }
 
 func Test_runCreate(t *testing.T) {
-	dirname := "testdir"
+	defer os.RemoveAll(dirnameTest)
 
-	defer os.Remove(dirname)
+	os.RemoveAll(dirnameTest)
 
-	os.Remove(dirname)
-
-	if err := runCreate(cmdCreate, []string{dirname}); err != nil {
+	if err := runCreate(cmdCreate, []string{dirnameTest}); err != nil {
 		t.Errorf("error occurred [error: %q]", err)
 	}
 }

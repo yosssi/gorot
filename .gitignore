@@ -24,6 +24,5 @@ _testmain.go
 *.prof
 
 cmd/gorot/gorot
-cmd/gorot/testdir
 
 testgorot

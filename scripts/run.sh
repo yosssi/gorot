@@ -14,6 +14,9 @@ bin_with_args=$dir/$@
 # Build an executable file.
 go build -o $bin $dir
 
+# Remove the generaged directory.
+rm -rf ./testgorot
+
 # Execute the executable file.
 $bin_with_args
 
